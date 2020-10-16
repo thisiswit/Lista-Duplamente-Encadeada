@@ -1,0 +1,101 @@
+
+public class Lista {
+
+private class No {
+
+	int valor;
+	No prox, ant;
+}
+
+	public int tamanho;
+	public No primeiro, ultimo;
+
+	public Lista() {
+		tamanho = 0;
+		primeiro = ultimo = new No();
+		primeiro.ant = primeiro.prox = null;
+	}
+
+	public boolean vazia() {
+		//return (tamanho == 0);
+		// return (primeiro == ultimo);
+		//return (primeiro.prox == null);
+		return (ultimo.ant == null);
+	}
+
+	public boolean insere(int valor) {
+		ultimo.prox = new No();
+
+		if (ultimo.prox == null) {
+			return false;
+		}
+
+		ultimo.prox.ant = ultimo;
+		ultimo = ultimo.prox;
+		ultimo.valor = valor;
+		ultimo.prox = null;
+		tamanho++;
+		return true;
+	}
+
+	public int numeroElementos() {
+		return tamanho;
+	}
+
+	public void imprime() {
+		No aux = primeiro.prox;
+		while (aux != null) {
+			System.out.print(aux.valor + " ");
+			aux = aux.prox;
+		}
+		System.out.println();
+	}
+
+	public void imprimeReverso() {
+		No aux = ultimo;
+		while (aux != primeiro) {
+			System.out.print(aux.valor + " ");
+			aux = aux.ant;
+		}
+		System.out.println();
+	}
+
+	public int retira(int valor) {
+		No aux = primeiro.prox;
+
+		while (aux != null) {
+			if (aux.valor == valor) {
+				tamanho--;
+				aux.ant.prox = aux.prox;
+				if (ultimo != aux) {
+					aux.prox.ant = aux.ant;
+				} else {
+					ultimo = ultimo.ant;
+				}	
+				return aux.valor;
+			}
+			aux = aux.prox;
+		}	
+
+		return -1;
+	}
+
+	public void excluir(int valor) {
+		No aux = primeiro.prox;
+
+		while (aux != null) {
+			if (aux.valor == valor) {
+			tamanho--;
+			aux.ant.prox = aux.prox;
+			if (ultimo != aux) {
+				aux.prox.ant = aux.ant;
+			} else {
+				ultimo = ultimo.ant;
+			}
+			return;
+		}
+		aux = aux.prox;
+		}
+	}
+
+}
